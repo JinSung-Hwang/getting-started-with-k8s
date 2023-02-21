@@ -1,0 +1,22 @@
+# note: replicaset은 항상 일정한 개수의 pod수를 유지하는 파드 그룹
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: 3-replicaset # note: 레플리카 이름
+spec:
+  template:
+    metadata:
+      name: 3-replicaset
+      labels:
+        app: 3-replicaset
+    spec:
+      containers:
+      - name: 3-replicaset
+        image: nginx
+        ports:
+        - containerPort: 80
+  replicas: 3 # note: 3개의 파드 생성
+  selector:
+    matchLabels:
+      app: 3-replicaset

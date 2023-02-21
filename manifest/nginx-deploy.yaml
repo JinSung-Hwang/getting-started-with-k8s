@@ -1,0 +1,24 @@
+# note: deployment은 replicaset을 포함하는 객체로서, pod의 배포 기능도 담당
+# note: 배포에는 롤링, 재생성, 블루그린, 카나리 배포 방식이 있음
+
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: nginx-deploy # note: nginx-deploy라는 이름의 디플로이먼트 생성
+  labels:
+    app: nginx # note: 디플로이먼트의 레이블
+spec:
+  replicas: 2 # note: 2개의 파드가 항상 유지되도록 생성
+  selector:   # note: 디플로이먼트가 관리할 파드를 선택
+    matchLabels:
+      app: nginx # note: 디플로이먼트는 nginx 레이블을 갖는 파드를 선택해 관리
+  template: # note: template에 정의된 내용에 따라 파드를 생성
+    metadata:
+      labels:
+        app: nginx # note: 생성될 파드의 레이블
+    spec: # note: 컨테이너에 대한 정보
+      containers:
+      - name: nginx
+        image: nginx:1.7.9 # note: 1.7.9 버전의 nginx 이미지 가져오기
+        ports:
+        - containerPort: 80 
