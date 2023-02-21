@@ -1,0 +1,22 @@
+# note: apiVersion: batch/v1 // 은 version 1.21부터 안정적으로 적용되었다.
+
+apiVersion: batch/v1beta1 # note: 일정 주기적으로 실행되는 잡(특정한 파드의 정상적인 상태를 유지할 수 있도록 관리함), 예시 잡은 데이터 백업용으로 사용함
+kind: CronJob # note: 크론잡 생성
+metadata:
+  name: hello
+spec:
+  schedule: "*/1 * * * *" # note: 스케쥴 지정
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox:1.28
+            imagePullPolicy: IfNotPresent # note: 테스크톱/서버에 이미지가 없을 때에만 내려받음
+            command: # note: 스케줄에 따라 다음에 명령을 실행
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes cluster
+          restartPolicy: OnFailure # note: 컨테이너에서 실행된 프로세스가 실패할 때 에만 다시 시작
+

@@ -1,0 +1,23 @@
+# note: 모든 worker node에 pod를 생성할떄 사용함, 예를 들어 모니터링용 pod를 각 worker node들에 생성할떄 사용함
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: prometheus-daemonset
+spec:
+  selector:
+    matchLabels:
+      tier: monitoring # note 사용자 정의 레이블로 모니터링 용도로 사용될 것임을 지정
+      name: prometheus-exporter
+  template:
+    metadata:
+      labels:
+        tier: monitoring # note: 모니터링 용도
+        name: prometheus-exporter
+    spec:
+      containers:
+      - name: prometheus
+        image: prom/node-exporter
+        ports:
+        - containerPort: 80
+
