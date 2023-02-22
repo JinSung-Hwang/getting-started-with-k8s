@@ -1,0 +1,12 @@
+# note: 영구 볼륨 클래임을 생성하기 위한 yaml파일
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+spec:
+  storageClassName: manual # todo: persistent-volume.yaml 파일의 storageClassName이 같은 volume을 바인드함
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
