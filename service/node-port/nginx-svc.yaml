@@ -1,0 +1,29 @@
+# note: 디플로이먼트로 pod배포하고 이 파일로 service 배포하여 연결함
+
+# note: 노드 포트란?
+# note: 노드 포트는 모든 워커 노드에 특정 포트(노드포트)를 열고 들어오는 모든 요청을 노드포트서비스로 전달합니다.
+# note: 트래픽을 받은 노드포드는 요청을 처리 할수 있는 파드에게 적적히 전달합니다. 
+# note: 요청을 처리할 수 있는 파드는 yaml에 기록되어있으며, 포드번호는 30000~32767 번호만 사용됩니다. 
+# note: 트래픽 흐름: 클라이언트 -> 노드포트(30001) -> 노드포트서비스(8080) -> 파드(80)
+# note: 제약 사항
+# note: 1. 포트당 하나의 서비스만 사용 가능 
+# note: 1. 30000~32767의 포트만 사용 가능하여 이 범위를 넘는 서비스는 운영 불가
+# note: 1. 노드나 가상 머신 IP가 변경되면 반드시 반영해야함
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nginx
+  labels:
+    run: my-nginx
+spec:
+  type: NodePort # note: 외부에서 접속할 때 노드 포트 서비스 사용
+  ports:
+  - nodePort: 30001 # note: 노드 포트 (여기를 작성하지 않으면 30000~32767중 랜덤으로 생성함)
+    port: 8080 # note: 노드포트 서비스에서 사용하는 포트
+    targetPort: 80 # note: 파드(컨테이너)에서 사용하는 포트
+    protocol: TCP
+    name: http
+  selector:
+    app: nginx # note: nginx라는 이름의 레이블을 갖는 파드를 서비스한다.

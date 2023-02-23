@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: load-balancer-example
+  name: hello-world
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: load-balancer-example
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: load-balancer-example
+    spec:
+      containers:
+      - image: gcr.io/google-samples/node-hello:1.0
+        name: hello-world
+        ports:
+        - containerPort: 8080 # note: 컨테이너(파드)에서 8080포트를 사용하도록 지정
+
+# note: 1. `kubectl apply -f load-balancer-example.yaml` 현재 이 파일을 적용함
+# note: 1. `kubectl expose deployment hello-world --type=LoadBalancer --name=exservice`를 통해서 이 deployemnt를 외부에 노출시키기 위한 서비스 오브젝트를 생성함
+# note: 1. `kubectl get services exservice` 를 통해서 xxxx:30000/TCP 중 30000번호를 주의 깊게 확인
+# note: 1. `curl http://워커노드ip:30000` 을 통해 결과 확인
+
+# note: 1. 중요한것은 curl를 호출하면 생성한 5개의 pod가 임의로 선택되어 응답함
