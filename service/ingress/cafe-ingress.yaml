@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cafe-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /tea # note: URL에서 /tea입력이 들어오면
+        pathType: Prefix
+        backend:
+          service:
+            name: tea-svc # note: tea-svc라는 서비스에 연결
+            port:
+              number: 80
+      - path: /coffee # note: URL에서 /coffee 입력이 들어오
+        pathType: Prefix
+        backend:
+          service:
+            name: coffee-svc #note: coffee-svc라는 서비스에 연결
+            port: 
+              number: 80
+
+
+# note: 1. `kubectl apply -f ./cafe.yaml` 로 생성
+# note: 1. `kubectl get deployments,svc,pods` 로 확인
+# note: 1. `kubectl apply -f cafe-ingress.yaml` 로 인그레스 생성
+# note: 1. `kubectl get ingress`로 ingress 정보 확인, 2~3분후면 ADDRESS가 보임
+# note: 1. `kubectl get pod -n ingress-nginx`로 파드, 서비스를 확인
+# note: 1. `kubectl get svc -n ingress-nginx` 인그레스 컨트롤러의 포트 번호 확인

@@ -1,0 +1,23 @@
+# note: clusterIP는 파드에 접근할 수 있는 가상의 IP이다.
+# note: 서비스를 파드에 연결해두면 clusterIP통해 파드에 접근할 수 있다. 
+# note: clusterIP는 클러스터 내부에 있고 내부에서만 접근 가능하고 외부에서는 접근 불가능하다. 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clusterip-nginx
+spec:
+  selector:
+    matchLabels:
+      run: clusterip-nginx
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: clusterip-nginx
+    spec:
+      containers:
+      - name: clusterip-nginx
+        image: nginx
+        ports:
+        - containerPort: 80
