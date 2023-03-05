@@ -1,0 +1,9 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: rbac
+  name: role
+rules: # note: 권한에 대한 규칙을 지정
+- apiGroups: [""]  # note: 역할이 적용될 그룹
+  resources: ["pods"] # note: 어떤 자원에 접근할지 명시
+  verbs: ["get"] # note: 어떤 동작이 가능한지 명시
