@@ -12,7 +12,7 @@ metadata:
   name: my-config
 data:
   NODE_ENV: local
-  username: admin # note: 이런 민감 정보는 시크릿에 들어가야한다
+  username: admin # note: 이런 민감 정보는 시크릿에 들어가야한다.
   password: 1234567890
   database: localhost
   multiline: |-

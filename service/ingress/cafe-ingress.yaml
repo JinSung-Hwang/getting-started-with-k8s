@@ -15,7 +15,7 @@ spec:
             name: tea-svc # note: tea-svc라는 서비스에 연결
             port:
               number: 80
-      - path: /coffee # note: URL에서 /coffee 입력이 들어오
+      - path: /coffee # note: URL에서 /coffee 입력이 들어오면
         pathType: Prefix
         backend:
           service:
