@@ -1,5 +1,5 @@
 # note: externalService란?
-# note: external-service라는 이름으로 요청이 들어온다면 클러스터 외부에 존재하는 myservice.test.com이라는 주소를 반환하는것이 externalName 서비스입니다.
+# note: external-service라는 이름으로 요청이 들어온다면 클러스터 외부에 존재하는 myservice.test.com이라는 주소를 반환하는것이 externalName 서비스임
 
 # note: 외부FQDN: myservice.test.com
 # note: CNAME: external-service

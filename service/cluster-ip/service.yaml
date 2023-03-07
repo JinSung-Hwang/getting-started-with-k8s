@@ -5,7 +5,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: app-test # NOTE: 서비스의 셀렉터와 파드의 레이블이 이름이 같으면 서비스는 해당 파드로 트래픽을 보냅니다. 가능한 이유는 서비스가 엔드포인트와 파드를 매핑해 관리하기 때문이다.
+    app: app-test # NOTE: 서비스의 셀렉터와 파드의 레이블이 이름이 같으면 서비스는 해당 파드로 트래픽을 보낸다. 가능한 이유는 서비스가 엔드포인트와 파드를 매핑해 관리하기 때문이다.
   ports:
   - name: http
     NodePort: 30001
